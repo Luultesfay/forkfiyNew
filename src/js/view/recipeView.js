@@ -1,11 +1,12 @@
-import icons from 'url:../../img/icons.svg'; //parcel2
-import { Fraction } from 'fractional'; //first we  installed (npm i fractional ) then inported it
-import views from './views.js';
-class recipeView extends views {
-  _parentElement = document.querySelector('.recipe'); //the whole container that hold the data console.log(document.querySelector('.recipe'))
+import icons from "url:../../img/icons.svg"; //parcel2
 
-  _ErrorMessage = 'we coud not find the recipe, try another one';
-  _message = '';
+import views from "./views.js";
+import fracty from "fracty"; //first we  installed (npm i fractional ) then inported it
+class recipeView extends views {
+  _parentElement = document.querySelector(".recipe"); //the whole container that hold the data console.log(document.querySelector('.recipe'))
+
+  _ErrorMessage = "we coud not find the recipe, try another one";
+  _message = "";
 
   //publisher
   //we put the event listner in the view becouse event shoud be in the view  and event shoud be hundled in the controller
@@ -16,12 +17,14 @@ class recipeView extends views {
 
     //we might have a lot of the same addEventListner() so we can do the eaiser way to do it
 
-    ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, handler)); //the same like the above code
+    ["hashchange", "load"].forEach((ev) =>
+      window.addEventListener(ev, handler)
+    ); //the same like the above code
   }
 
   addHandlerUpdateServing(handler) {
-    this._parentElement.addEventListener('click', function (e) {
-      const btn = e.target.closest('.btn--update-servings'); //event deligation
+    this._parentElement.addEventListener("click", function (e) {
+      const btn = e.target.closest(".btn--update-servings"); //event deligation
       if (!btn) return;
       console.log(btn);
 
@@ -35,8 +38,8 @@ class recipeView extends views {
   }
 
   addHandlerAddBookMark(handler) {
-    this._parentElement.addEventListener('click', function (e) {
-      const btn = e.target.closest('.btn--bookmark');
+    this._parentElement.addEventListener("click", function (e) {
+      const btn = e.target.closest(".btn--bookmark");
 
       if (!btn) return;
       handler();
@@ -97,7 +100,7 @@ class recipeView extends views {
           <button class="btn--round  btn--bookmark">
             <svg class="">
               <use href="${icons}#icon-${
-      this._data.bookmarked === true ? 'bookmark-fill' : 'bookmark'
+      this._data.bookmarked === true ? "bookmark-fill" : "bookmark"
     } "></use>
             </svg>
           </button>
@@ -107,7 +110,7 @@ class recipeView extends views {
           <h2 class="heading--2">Recipe ingredients</h2>
           <ul class="recipe__ingredient-list">
     
-          ${this._data.ingredients.map(this._generateMarkupIngrident).join('')}
+          ${this._data.ingredients.map(this._generateMarkupIngrident).join("")}
             
     
             
@@ -143,7 +146,7 @@ class recipeView extends views {
     <use href="${icons}#icon-check"></use>
   </svg>
   <div class="recipe__quantity">${
-    ing.quantity ? new Fraction(ing.quantity).toString() : ''
+    ing.quantity ? fracty(ing.quantity).toString() : ""
   }</div>
   <div class="recipe__description">
     <span class="recipe__unit">${ing.unit}</span>
